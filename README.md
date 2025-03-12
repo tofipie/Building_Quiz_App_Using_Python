@@ -14,7 +14,7 @@ This is an **Interactive Quiz Application** built using [Streamlit](https://stre
 
 1. **Clone the repository**  
    ```bash
-   git clone https://github.com/your-username/quiz-app.git
+   git clone https://github.com/MuhammadAdnan1998/Building_Quiz_App_Using_Python.git
    cd quiz-app
    ```
 
@@ -36,7 +36,7 @@ streamlit run quiz_app.py
 ```
 
 ## 📸 Screenshots  
-![Quiz App Screenshot](https://via.placeholder.com/800x400?text=Quiz+Application+Screenshot)
+![Quiz App Screenshot](https://building-quiz-app-using-python.streamlit.app/800x400?text=Quiz+Application+Screenshot)
 
 ## 🛠️ Technologies Used
 - **Python** 🐍  
