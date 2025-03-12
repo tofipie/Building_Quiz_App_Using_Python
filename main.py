@@ -1,70 +1,71 @@
-import streamlit as st # for the web interface
-import random # for randomizing the questions
-import time # for the timer
+import streamlit as st
+import random
+import time
 
 # Title of the Application
-st.title("📝 Quiz Application")
+st.title("📝 Interactive Quiz Application")
 
-# Define quiz questions, options, and answer in the form of a list of dictionaries
+# Instructions
+with st.expander("ℹ️ How to Play"):
+    st.write("""
+    - Select the correct answer from the given options.
+    - Click **Submit Answer** to check if you are correct.
+    - You will get instant feedback.
+    - Click **Next Question** to move forward.
+    - Your progress will be displayed at the top.
+    """)
+
+# Define quiz questions, options, and answers
 questions = [
-    {
-        "question": "What is the capital of Pakistan?",
-        "options": ["Lahore", "Karachi", "Islamabad", "Peshawar"],
-        "answer": "Islamabad",
-    },
-    {
-        "question": "Who is the founder of Pakistan?",
-        "options": [
-            "Allama Iqbal",
-            "Liaquat Ali Khan",
-            "Muhammad Ali Jinnah",
-            "Benazir Bhutto",
-        ],
-        "answer": "Muhammad Ali Jinnah",
-    },
-    {
-        "question": "Which is the national language of Pakistan?",
-        "options": ["Punjabi", "Urdu", "Sindhi", "Pashto"],
-        "answer": "Urdu",
-    },
-    {
-        "question": "What is the currency of Pakistan?",
-        "options": ["Rupee", "Dollar", "Taka", "Riyal"],
-        "answer": "Rupee",
-    },
-    {
-        "question": "Which city is known as the City of Lights in Pakistan?",
-        "options": ["Lahore", "Islamabad", "Faisalabad", "Karachi"],
-        "answer": "Karachi",
-    },
+    {"question": "What is the capital of Pakistan?", "options": ["Lahore", "Karachi", "Islamabad", "Peshawar"], "answer": "Islamabad"},
+    {"question": "Who is the founder of Pakistan?", "options": ["Allama Iqbal", "Liaquat Ali Khan", "Muhammad Ali Jinnah", "Benazir Bhutto"], "answer": "Muhammad Ali Jinnah"},
+    {"question": "Which is the national language of Pakistan?", "options": ["Punjabi", "Urdu", "Sindhi", "Pashto"], "answer": "Urdu"},
+    {"question": "What is the currency of Pakistan?", "options": ["Rupee", "Dollar", "Taka", "Riyal"], "answer": "Rupee"},
+    {"question": "Which city is known as the City of Lights in Pakistan?", "options": ["Lahore", "Islamabad", "Faisalabad", "Karachi"], "answer": "Karachi"},
 ]
 
-# Initialize a random question if none exists in the session state
-if "current_question" not in st.session_state:
-    st.session_state.current_question = random.choice(questions)
+# Initialize session state variables
+if "quiz_progress" not in st.session_state:
+    st.session_state.quiz_progress = 0
+    st.session_state.correct_answers = 0
+    st.session_state.remaining_questions = questions.copy()
+    random.shuffle(st.session_state.remaining_questions)
 
-# Get the current question from session state
-question = st.session_state.current_question
+# Show progress
+st.progress(st.session_state.quiz_progress / len(questions))
+st.write(f"📊 **Question {st.session_state.quiz_progress + 1} of {len(questions)}**")
 
-# Display the question
-st.subheader(question["question"])
+# Select current question
+if st.session_state.remaining_questions:
+    current_question = st.session_state.remaining_questions[0]
+    st.subheader(current_question["question"])
 
-# Create radio buttons for the options
-selected_option = st.radio("Choose your answer", question["options"], key="answer")
+    # Create radio buttons for answer choices
+    selected_option = st.radio("Choose your answer:", current_question["options"], key="answer")
 
-# Submit button the check the answer
-if st.button("Submit Answer"):
-    # check if the answer is correct
-    if selected_option == question["answer"]:
-        st.success("✅ Correct!")
-    else:
-        st.error("❌ Incorrect! the correct answer is " + question["answer"])
-  
-    # Wait for 3 seconds before showing the next question
-    time.sleep(5)
+    # Submit button
+    if st.button("✅ Submit Answer"):
+        if selected_option == current_question["answer"]:
+            st.success("🎉 Correct! Well done.")
+            st.session_state.correct_answers += 1
+        else:
+            st.error(f"❌ Incorrect! The correct answer is **{current_question['answer']}**.")
 
-    # Select a new random question
-    st.session_state.current_question = random.choice(questions)
+        # Remove the current question from the list
+        st.session_state.remaining_questions.pop(0)
+        st.session_state.quiz_progress += 1
 
-    # Rerun the app to display the next question    
-    st.rerun()
+        time.sleep(2)
+        st.rerun()
+
+# Show final score
+if not st.session_state.remaining_questions:
+    st.subheader("🎉 Quiz Completed!")
+    st.write(f"✅ **Your Score: {st.session_state.correct_answers} / {len(questions)}**")
+    st.balloons()
+    if st.button("🔄 Restart Quiz"):
+        st.session_state.quiz_progress = 0
+        st.session_state.correct_answers = 0
+        st.session_state.remaining_questions = questions.copy()
+        random.shuffle(st.session_state.remaining_questions)
+        st.rerun()
