@@ -37,6 +37,10 @@ streamlit run quiz_app.py
 
 ## 📸 Screenshots  
 ![Quiz App Screenshot](https://building-quiz-app-using-python.streamlit.app/800x400?text=Quiz+Application+Screenshot)
+![alt text](image.png)
+![alt text](image-1.png)
+![alt text](image-2.png)
+![alt text](image-3.png)
 
 ## 🛠️ Technologies Used
 - **Python** 🐍  
