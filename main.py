@@ -1,9 +1,9 @@
-st.markdown(hide_github_icon, unsafe_allow_html=True)
 
 import streamlit as st
 import random
 import time
 
+st.markdown(hide_github_icon, unsafe_allow_html=True)
 
 
 # Title of the Application
