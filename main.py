@@ -7,17 +7,6 @@ st.title("Interactive Quiz App 💬")
 st.header('Made by Noa Cohen')
 
 
-"""
-# Instructions
-with st.expander("ℹ️ How to Play"):
-    st.write("""
-    - Select the correct answer from the given options.
-    - Click **Submit Answer** to check if you are correct.
-    - You will get instant feedback.
-    - Click **Next Question** to move forward.
-    - Your progress will be displayed at the top.
-    """)
-"""
 
 # Define quiz questions, options, and answers
 questions = [
