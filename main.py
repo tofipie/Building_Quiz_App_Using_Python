@@ -27,7 +27,7 @@ if "quiz_progress" not in st.session_state:
 
 # Show progress
 st.progress(st.session_state.quiz_progress / len(questions))
-st.write(f"📊 **Question {st.session_state.quiz_progress + 1} of {len(questions)}**")
+st.write(f"❓ **Question {st.session_state.quiz_progress + 1} of {len(questions)}**")
 
 # Select current question
 if st.session_state.remaining_questions:
