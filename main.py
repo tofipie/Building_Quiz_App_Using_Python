@@ -1,14 +1,10 @@
+st.markdown(hide_github_icon, unsafe_allow_html=True)
+
 import streamlit as st
 import random
 import time
 
-# Add custom CSS to hide the GitHub icon
-hide_github_icon = """
-#GithubIcon {
-  visibility: hidden;
-}
-"""
-st.markdown(hide_github_icon, unsafe_allow_html=True)
+
 
 # Title of the Application
 st.title("Interactive Quiz App 💬")
