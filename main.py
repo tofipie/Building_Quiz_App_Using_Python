@@ -2,7 +2,7 @@
 import streamlit as st
 import random
 import time
-#MainMenu {
+MainMenu {
   visibility: hidden;
 }
 
